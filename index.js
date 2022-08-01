@@ -1,16 +1,22 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const uuid = require('uuid');
+const jwt = require('jsonwebtoken');
+
+//ele esta criptografando o texto 'shhhhhh'
+var tokenTeste = jwt.sign({ foo: 'bar' }, 'shhhhh');
+
+var tokenID = jwt.sign({ foo: 'bar'}, uuid.v4());
 
 const server = express(); 
 server.use(bodyParser.json());
 
 var clients = [];
 
-server.get('/teste', (req, res) =>{
+server.get('/token', (req, res) =>{
 
 
-    return res.json({ message: 'Hello World'})
+    return res.json(tokenID + id)
 })
 
 server.get('/consultclients', (req,res) =>{
@@ -32,6 +38,7 @@ server.post('/createclient', (req, res) =>{
         'id': uuid.v4(),
         'name': req.body.name,
         'poder': req.body.poder
+        //'token'?: req.header.authorization
     }
     clients = [  
         ...clients, 
